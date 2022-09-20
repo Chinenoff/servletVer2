@@ -16,31 +16,9 @@ public class MainServlet extends HttpServlet {
 
     @Override
     public void init() {
-
         final var context = new AnnotationConfigApplicationContext("my.servlet");
-
-        final var repository = context.getBean("postRepository");
         final var service = context.getBean(PostService.class);
         controller = context.getBean(PostController.class);
-
-    /*var context = new AnnotationConfigApplicationContext();
-    context.scan("my.servlet");
-    context.refresh();*//*
-    // отдаём список пакетов, в которых нужно искать аннотированные классы
-    context = new AnnotationConfigApplicationContext("my.servlet"); //ru.netology
-
-    // получаем по имени бина
-    controller = context.getBean("postController");
-
-    // получаем по классу бина
-    service = context.getBean(PostService.class);
-
-    // по умолчанию создаётся лишь один объект на BeanDefinition
-    //final var isSame = service == context.getBean("postService");
-
-    *//*final var my.servlet.repository = new PostRepository();
-    final var my.servlet.service = new PostService(my.servlet.repository);
-    my.servlet.controller = new PostController(my.servlet.service);*/
     }
 
     @Override
