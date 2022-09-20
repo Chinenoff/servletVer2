@@ -1,4 +1,4 @@
-package exception;
+package my.servlet.exception;
 
 public class NotFoundException extends RuntimeException {
   public NotFoundException() {
