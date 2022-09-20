@@ -12,7 +12,6 @@ import java.io.Reader;
 
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
-@Controller
 public class PostController {
     public static final String APPLICATION_JSON = "application/json";
     private final PostService service;

@@ -1,5 +1,6 @@
 package my.servlet.servlet;
 
+import my.servlet.config.JavaConfig;
 import my.servlet.controller.PostController;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import my.servlet.service.PostService;
@@ -11,12 +12,10 @@ import java.io.IOException;
 
 public class MainServlet extends HttpServlet {
     private PostController controller;
-    private AnnotationConfigApplicationContext context;
-    private PostService service;
 
     @Override
     public void init() {
-        final var context = new AnnotationConfigApplicationContext("my.servlet");
+        final var context = new AnnotationConfigApplicationContext(JavaConfig.class);
         final var service = context.getBean(PostService.class);
         controller = context.getBean(PostController.class);
     }
