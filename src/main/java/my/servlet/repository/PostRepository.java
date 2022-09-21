@@ -1,19 +1,19 @@
-package repository;
+package my.servlet.repository;
 
-import exception.NotFoundException;
-import model.Post;
+import my.servlet.exception.NotFoundException;
+import my.servlet.model.Post;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-// Stub
+@Repository
 public class PostRepository {
 
     private static Long counter= Long.valueOf(0);
     private AtomicLong counterAtomicLong = new AtomicLong(1);;
 
-    //private final static Generator generator = new Generator();
     private final static Map<Long, Post> postMap = new ConcurrentHashMap<>();
 
     public List<Post> all() {

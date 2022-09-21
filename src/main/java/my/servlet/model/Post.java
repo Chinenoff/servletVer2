@@ -1,4 +1,4 @@
-package model;
+package my.servlet.model;
 
 public class Post {
   private long id;

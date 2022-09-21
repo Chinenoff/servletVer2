@@ -1,11 +1,13 @@
-package service;
+package my.servlet.service;
 
-import exception.NotFoundException;
-import model.Post;
-import repository.PostRepository;
+import my.servlet.exception.NotFoundException;
+import my.servlet.model.Post;
+import my.servlet.repository.PostRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PostService {
   private final PostRepository repository;
 
