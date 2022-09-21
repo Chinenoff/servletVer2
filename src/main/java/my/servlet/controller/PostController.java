@@ -1,60 +1,39 @@
 package my.servlet.controller;
 
-import com.google.gson.Gson;
-import my.servlet.exception.NotFoundException;
 import my.servlet.model.Post;
 import my.servlet.service.PostService;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.Reader;
+import java.util.List;
 
-import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
-
-@Controller
+@RestController
+@RequestMapping("/api/posts")
 public class PostController {
-  public static final String APPLICATION_JSON = "application/json";
-  private final PostService service;
+    private final PostService service;
 
-  public PostController(PostService service) {
-    this.service = service;
-  }
-
-  public void all(HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
-    final var data = service.all();
-    final var gson = new Gson();
-    response.getWriter().print("List saved posts: " + gson.toJson(data));
-  }
-
-  public void getById(long id, HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
-    final var gson = new Gson();
-    Post post = null;
-    try {
-      post = service.getById(id);
-    } catch (NotFoundException ex) {
-      response.setStatus(SC_NOT_FOUND);
+    public PostController(PostService service) {
+        this.service = service;
     }
-    response.getWriter().print("Post was found: " + gson.toJson(post));
-  }
 
-  public void save(Reader body, HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
-    final var gson = new Gson();
-    final var post = gson.fromJson(body, Post.class);
-    final var data = service.save(post);
-    response.getWriter().print("Post saved: " +  gson.toJson(data));
-  }
-
-  public void removeById(long id, HttpServletResponse response) throws IOException {
-    response.setContentType(APPLICATION_JSON);
-    try {
-      service.removeById(id);
-    } catch (NotFoundException ex) {
-      response.setStatus(SC_NOT_FOUND);
+    @GetMapping
+    public List<Post> all() {
+        return service.all();
     }
-    response.getWriter().print("Post [" + id + "] removed");
-  }
+
+    @GetMapping("/{id}")
+    public Post getById(@PathVariable long id) {
+        return service.getById(id);
+    }
+
+    @PostMapping
+    public Post save(@RequestBody Post post) {
+        return service.save(post);
+    }
+
+    @DeleteMapping("/{id}")
+    public void removeById(@PathVariable long id) {
+        service.removeById(id);
+    }
 }
